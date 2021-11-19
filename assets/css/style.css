@@ -1,0 +1,22 @@
+/* .container{
+    display: flex;
+    flex-direction: row;
+    max-width: 640px;
+    height: 100%;
+} */
+
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+
+.search{
+    margin-left: 20px;
+}
+
+.current-weather{
+    margin-right: 200px;
+}
