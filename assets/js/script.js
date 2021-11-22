@@ -12,14 +12,14 @@ var humidityEl = document.querySelector("#humidity");
 var WindSpeedEl = document.querySelector("#wind-speed");
 var uvIndexEl = document.querySelector("#UV-index");
 var cardRowEl = document.querySelector("#card-row");
-var currentWeather = document.querySelector(".current-weather");
+var currentWeather = document.querySelector("#current-weather-container");
 var currentCity = document.querySelector("#current-city");
 
 
 
 
 
-function displayWeather(){
+function gitCityWeather(){
     let inputValue=$("#input-value").val()  
       console.log(inputValue)
     
@@ -31,15 +31,10 @@ function displayWeather(){
             if (response.ok){
                 return response.json()
             } 
-
-            currentCity.text(response.name);
-            currentWeather.appendChild(currentCity);
-
-            
         })
         .then(function(data){
             console.log("data ", data)
-            // searchedResult(data)
+            displayWeather(data)
 
             
         })
@@ -48,9 +43,15 @@ function displayWeather(){
       
     }
 
-    // function searchedResult(data){
+    function displayWeather(data){
 
-    // }
+        currentWeather.innerHTML=""
+        currentCity.innerHTML = response.data.name;
+
+
+
+
+    }
     
         
 
