@@ -46,13 +46,28 @@ function getCityWeather(){
             // currentCity.appendChild(h1El);
             currentCity.textContent=data.name;
 
-            var currentDate = moment().format('MMMM Do YYYY');
+            var currentDate = moment().format("M/D/YYYY");
             currentDateEl.textContent = currentDate;
 
             var iconSRC = ` http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`
             weatherIconEl.setAttribute("src", iconSRC);
 
-            tempEl.textContent= "temp: " + data.main.temp +" f"
+            tempEl.textContent= "Temp: " + data.main.temp +" °F";
+            humidityEl.textContent= "Humidity: " + data.main.humidity + "%";
+            WindSpeedEl.textContent= "Wind: " + data.wind.speed + " mph";
+
+            var lat = data.coord.lat;
+            var lon = data.coord.lon;
+            var uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&cnt=1";
+            console.log(uvIndexUrl);
+
+            
+            
+
+
+
+
+
 
 
 
@@ -91,9 +106,10 @@ function getCityWeather(){
                 //card body
                 //give it content
                 //append the content to the card body
-                //apend the card body to the card 
+                //append the card body to the card 
 
                 //append the card to your 5 day forecast html element
+                
                 
             }
 
