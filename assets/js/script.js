@@ -16,6 +16,8 @@ var uvIndexEl = document.querySelector("#UV-index");
 var cardRowEl = document.querySelector("#card-row");
 var currentWeather = document.querySelector("#current-weather");
 var currentCity = document.querySelector("#current-city");
+var forecastEl = document.querySelector("#card-row");
+
 
 
 
@@ -99,16 +101,31 @@ function getCityWeather(){
             console.log("data ", data)
 
             for (let i = 0; i < 5; i++) {
-                console.log(data.list[i].main.temp);
+                // console.log(data.list[i].main.temp);
+                // var dailyForecast = fiveDay[i];
 
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
-                //card body
-                //give it content
-                //append the content to the card body
-                //append the card body to the card 
+                
+                var forecastDate = document.createElement("h5")
+              
+                forecastDate.textContent= moment().format("M/D/YYYY");
+                forecastDate.classList = "card-header text-center"
+                
+                forecastEl.appendChild(forecastDate);
+                
+               
 
-                //append the card to your 5 day forecast html element
+                
+
+                // var weatherIcon = document.createElement("img")
+                // weatherIcon.classList = "card-body text-center";
+                // weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);  
+
+                // //append to forecast card
+                // forecastEl.appendChild(weatherIcon);
+
+
                 
                 
             }
