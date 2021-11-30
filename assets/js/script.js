@@ -13,7 +13,7 @@ var tempEl = document.querySelector("#temperature");
 var humidityEl = document.querySelector("#humidity");
 var WindSpeedEl = document.querySelector("#wind-speed");
 var uvIndexEl = document.querySelector("#UV-index");
-var cardRowEl = document.querySelector("#card-row");
+// var cardRowEl = document.querySelector("#card-row");
 var currentWeather = document.querySelector("#current-weather");
 var currentCity = document.querySelector("#current-city");
 var forecastEl = document.querySelector("#card-row");
@@ -57,34 +57,33 @@ function getCityWeather(){
             tempEl.textContent= "Temp: " + data.main.temp +" °F";
             humidityEl.textContent= "Humidity: " + data.main.humidity + "%";
             WindSpeedEl.textContent= "Wind: " + data.wind.speed + " mph";
+          
 
             var lat = data.coord.lat;
             var lon = data.coord.lon;
             var uvIndexUrl = "https://api.openweathermap.org/data/2.5/uvi/forecast?lat=" + lat + "&lon=" + lon + "&appid=" + apiKey + "&cnt=1";
-            console.log(uvIndexUrl);
-
-            
-            
 
 
+            uvIndex(uvIndexUrl)
 
-
-
-
-
-
-
-
-
-
+     
             fiveDay(inputValue)
-            // displayWeather(data)
-
-            
+            // displayWeather(data)            
         })
-        
 
-      
+    }
+
+    function uvIndex(uvIndexUrl){
+        fetch(uvIndexUrl).then(function(response){
+            if (response.ok){
+                return response.json()
+            } 
+        })
+        .then(function(data){
+                console.log("uv call: ", data[0].value)
+                uvIndexEl.textContent= "uvindex: " + data[0].value;
+        })
+
     }
 
     function fiveDay(cityInput){
@@ -100,30 +99,44 @@ function getCityWeather(){
         .then(function(data){
             console.log("data ", data)
 
-            for (let i = 0; i < 5; i++) {
-                // console.log(data.list[i].main.temp);
-                // var dailyForecast = fiveDay[i];
+            for (let i = 0; i < 40; i+= 8) {
+                console.log(data.list[i].main.temp);
+                // console.log([i]);
 
                 var card = document.createElement("div");
                 card.setAttribute("class", "card");
                 
                 var forecastDate = document.createElement("h5")
               
-                forecastDate.textContent= moment().format("M/D/YYYY");
+                forecastDate.textContent = data.list[i].dt_txt.split(" ")[0];
                 forecastDate.classList = "card-header text-center"
+                card.appendChild(forecastDate);
                 
-                forecastEl.appendChild(forecastDate);
+                forecastEl.appendChild(card);
+
+                var weatherIcon = document.createElement("img");
+                card.appendChild(weatherIcon);
+
+                weatherIcon.setAttribute("src", "https://openweathermap.org/img/w/" + data.list[i].weather[0].icon + ".png");  
+
+                var fiveDayTemp = document.createElement('p');
+                fiveDayTemp.textContent = 'Temp: ' + data.list[i].main.temp +" °F";
+                card.appendChild(fiveDayTemp);
+
+                var fiveDayHum = document.createElement('p');
+                fiveDayHum.textContent = 'Humidity: ' + data.list[i].main.humidity + "%";
+                card.appendChild(fiveDayHum);
+
+                var fiveDayWind = document.createElement('p');
+                fiveDayWind.textContent = 'Wind: ' + data.list[i].wind.speed + " mph";
+                card.appendChild(fiveDayWind);
+
                 
                
 
+        
+              
                 
-
-                // var weatherIcon = document.createElement("img")
-                // weatherIcon.classList = "card-body text-center";
-                // weatherIcon.setAttribute("src", `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png`);  
-
-                // //append to forecast card
-                // forecastEl.appendChild(weatherIcon);
 
 
                 
@@ -135,21 +148,6 @@ function getCityWeather(){
         })
         
     }
-    // getCityWeather();
-
-//     function displayWeather(data){
-
-//         currentWeather.innerHTML=""
-//         currentCity.innerHTML = response.name;
-//         currentWeather.appendChild(currentCity);
-
-
-
-
-//     }
-    
-        
-
 
     searchBtn.addEventListener("click",getCityWeather )
 

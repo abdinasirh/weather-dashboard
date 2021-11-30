@@ -20,3 +20,15 @@
 .current-weather{
     margin-right: 200px;
 }
+
+.card-row{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+.card{
+    margin: 10px;
+    padding: 10px;
+    background-color: cornflowerblue;
+}
