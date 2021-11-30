@@ -81,7 +81,7 @@ function getCityWeather(){
         })
         .then(function(data){
                 console.log("uv call: ", data[0].value)
-                uvIndexEl.textContent= "uvindex: " + data[0].value;
+                uvIndexEl.textContent= "Uv Index: " + data[0].value;
         })
 
     }
